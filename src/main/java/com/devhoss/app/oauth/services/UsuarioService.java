@@ -1,4 +1,4 @@
-package com.devhoss.app.oauth.service;
+package com.devhoss.app.oauth.services;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,9 +18,9 @@ import com.devhoss.app.oauth.clients.UsuarioFeignClient;
 import com.devhoss.app.oauth.models.Usuario;
 
 @Service
-public class UsuarioServiceImpl implements  UserDetailsService{
+public class UsuarioService implements IUsuarioService, UserDetailsService{
 	
-	private Logger log = LoggerFactory.getLogger(IUsuarioService.class);
+	private Logger log = LoggerFactory.getLogger(UsuarioService.class);
 	
 	@Autowired
 	private UsuarioFeignClient client;
@@ -47,6 +46,9 @@ public class UsuarioServiceImpl implements  UserDetailsService{
 				true, true, authorities);
 	}
 
-
+	@Override
+	public Usuario findByUsername(String username) {
+		return client.findByUsername(username);
+	}
 
 }
