@@ -1,5 +1,6 @@
 package com.devhoss.app.oauth.models;
 
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
 
 @Entity
 @Table(name = "usuarios")
@@ -37,10 +39,20 @@ public class Usuario implements Serializable {
 	private String email;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"), 
-	inverseJoinColumns = @JoinColumn(name = "role_id"), 
-	uniqueConstraints = {@UniqueConstraint(columnNames = { "usuario_id", "role_id" }) })
+	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"),
+			uniqueConstraints = {@UniqueConstraint(columnNames = { "usuario_id", "role_id" }) })
 	private List<Role> roles;
+
+	private Integer intentos;
+
+	public Integer getIntentos() {
+		return intentos;
+	}
+
+	public void setIntentos(Integer intentos) {
+		this.intentos = intentos;
+	}
 
 	public List<Role> getRoles() {
 		return roles;
